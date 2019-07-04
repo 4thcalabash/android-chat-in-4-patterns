@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.Objects;
 import java.util.Properties;
 
@@ -75,7 +76,7 @@ public class Utils {
             log.info("url = " + url);
             System.out.println(url);
             URL urlConnection = new URL(url);
-            HttpsURLConnection connection = (HttpsURLConnection)urlConnection.openConnection();
+            URLConnection connection = (URLConnection)urlConnection.openConnection();
             connection.setDoInput(true);
             connection.connect();
             InputStream input = connection.getInputStream();
