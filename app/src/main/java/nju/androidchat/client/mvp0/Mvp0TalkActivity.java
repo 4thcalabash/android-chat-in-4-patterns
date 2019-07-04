@@ -20,6 +20,7 @@ import lombok.extern.java.Log;
 import nju.androidchat.client.ClientMessage;
 import nju.androidchat.client.R;
 import nju.androidchat.client.Utils;
+import nju.androidchat.client.component.ItemFactory;
 import nju.androidchat.client.component.ItemTextReceive;
 import nju.androidchat.client.component.ItemTextSend;
 import nju.androidchat.client.component.OnRecallMessageRequested;
@@ -48,6 +49,7 @@ public class Mvp0TalkActivity extends AppCompatActivity implements Mvp0Contract.
 
     @Override
     public void showMessageList(List<ClientMessage> messages) {
+        log.info("showMessageList :" + messages.size() + messages.get(0).getMessage());
         runOnUiThread(() -> {
                     LinearLayout content = findViewById(R.id.chat_content);
 
@@ -59,9 +61,9 @@ public class Mvp0TalkActivity extends AppCompatActivity implements Mvp0Contract.
                         String text = String.format("%s", message.getMessage());
                         // 如果是自己发的，增加ItemTextSend
                         if (message.getSenderUsername().equals(this.presenter.getUsername())) {
-                            content.addView(new ItemTextSend(this, text, message.getMessageId(), this));
+                            content.addView(ItemFactory.createSend(this, text, message.getMessageId(), this));
                         } else {
-                            content.addView(new ItemTextReceive(this, text, message.getMessageId()));
+                            content.addView(ItemFactory.createReceive(this, text, message.getMessageId()));
                         }
                     }
 

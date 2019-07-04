@@ -1,6 +1,8 @@
 package nju.androidchat.client;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -8,8 +10,15 @@ import android.widget.ScrollView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Objects;
 import java.util.Properties;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import lombok.experimental.UtilityClass;
 import lombok.extern.java.Log;
@@ -61,4 +70,23 @@ public class Utils {
         return content.contains("fuck");
     }
 
+    public Bitmap getImg(String url){
+        try {
+            log.info("url = " + url);
+            System.out.println(url);
+            URL urlConnection = new URL(url);
+            HttpsURLConnection connection = (HttpsURLConnection)urlConnection.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap mp = BitmapFactory.decodeStream(input);
+            return mp;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
+// ![image](https://calabashboy.xyz/resource/image.jpg)

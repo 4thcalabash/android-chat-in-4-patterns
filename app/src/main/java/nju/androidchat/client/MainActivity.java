@@ -49,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         inputIp.setText(SocketClient.SERVER_ADDRESS + ":" + Shared.SERVER_PORT);
+
+        EditText inputUsername = findViewById(R.id.username_input);
+        inputUsername.setText("calabashboy");
     }
 
     public void onBtnConnectClicked(View view) {

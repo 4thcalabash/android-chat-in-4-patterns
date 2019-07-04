@@ -71,8 +71,11 @@ public class SocketClient implements Closeable, Runnable {
             if (client != null) {
                 client.close();
             }
+            log.info("ip = "+ splitted[0]);
             Socket socket = new Socket(splitted[0], Integer.parseInt(splitted[1]));
+
             SocketClient client = new SocketClient(username, socket);
+
             log.info("Socket connection established.");
 
             // send login request
